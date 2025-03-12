@@ -48,60 +48,72 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-50 to-purple-50 p-8">
-      <header className="mb-12">
-        <h1 className="text-5xl font-extrabold text-center text-indigo-700">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 p-8">
+      {/* Header */}
+      <header className="mb-12 text-center">
+        <h1 className="text-5xl font-extrabold text-indigo-700 drop-shadow-lg">
           Order Fulfillment Dashboard
         </h1>
       </header>
-      <main className="max-w-4xl mx-auto">
-        <section className="bg-white p-8 rounded-3xl shadow-xl mb-12">
+
+      <main className="max-w-4xl mx-auto space-y-12">
+        {/* Add New Order Section */}
+        <section className="bg-white/80 backdrop-blur-md p-8 rounded-3xl shadow-xl transition hover:shadow-2xl">
           <h2 className="text-3xl font-semibold text-gray-800 mb-6">Add New Order</h2>
           <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+            {/* Order Name */}
             <div className="sm:col-span-2">
               <label className="block text-lg font-medium text-gray-700">Order Name</label>
               <input
                 type="text"
                 value={newOrder.name}
                 onChange={(e) => setNewOrder({ ...newOrder, name: e.target.value })}
-                className="mt-2 block w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-indigo-500 focus:border-indigo-500"
+                className="mt-2 block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-indigo-500 focus:ring-indigo-500"
                 placeholder="Enter order name"
                 required
               />
             </div>
+
+            {/* Quantity */}
             <div>
               <label className="block text-lg font-medium text-gray-700">Quantity</label>
               <input
                 type="number"
                 value={newOrder.quantity}
                 onChange={(e) => setNewOrder({ ...newOrder, quantity: e.target.value })}
-                className="mt-2 block w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-indigo-500 focus:border-indigo-500"
+                className="mt-2 block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-indigo-500 focus:ring-indigo-500"
                 placeholder="0"
                 required
               />
             </div>
+
+            {/* Customer Name */}
             <div className="sm:col-span-3">
               <label className="block text-lg font-medium text-gray-700">Customer Name</label>
               <input
                 type="text"
                 value={newOrder.customer}
                 onChange={(e) => setNewOrder({ ...newOrder, customer: e.target.value })}
-                className="mt-2 block w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-indigo-500 focus:border-indigo-500"
+                className="mt-2 block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-indigo-500 focus:ring-indigo-500"
                 placeholder="Enter customer name"
                 required
               />
             </div>
+
+            {/* Submit Button */}
             <div className="sm:col-span-3">
               <button
                 type="submit"
-                className="w-full bg-indigo-600 text-white py-3 rounded-full hover:bg-indigo-700 transition-colors"
+                className="w-full bg-indigo-600 text-white py-3 rounded-full font-semibold tracking-wide hover:bg-indigo-700 transition-colors"
               >
                 Add Order
               </button>
             </div>
           </form>
         </section>
-        <section className="bg-white p-8 rounded-3xl shadow-xl">
+
+        {/* Orders List Section */}
+        <section className="bg-white/80 backdrop-blur-md p-8 rounded-3xl shadow-xl transition hover:shadow-2xl">
           <h2 className="text-3xl font-semibold text-gray-800 mb-6">Orders</h2>
           {loading ? (
             <p className="text-gray-500">Loading orders...</p>
@@ -110,10 +122,17 @@ export default function Dashboard() {
           ) : (
             <div className="grid gap-6 sm:grid-cols-2">
               {orders.map((order) => (
-                <div key={order.id} className="p-6 border rounded-2xl hover:shadow-2xl transition-shadow">
+                <div
+                  key={order.id}
+                  className="p-6 border border-gray-200 rounded-2xl hover:shadow-xl transition-shadow bg-white"
+                >
                   <h3 className="text-2xl font-bold text-gray-800">{order.name}</h3>
-                  <p className="text-gray-600 mt-2">Quantity: {order.quantity}</p>
-                  <p className="text-gray-600 mt-1">Customer: {order.customer}</p>
+                  <p className="text-gray-600 mt-2">
+                    <span className="font-medium">Quantity:</span> {order.quantity}
+                  </p>
+                  <p className="text-gray-600 mt-1">
+                    <span className="font-medium">Customer:</span> {order.customer}
+                  </p>
                 </div>
               ))}
             </div>
