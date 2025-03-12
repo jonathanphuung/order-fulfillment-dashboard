@@ -35,3 +35,25 @@ export async function POST(request) {
     headers: { 'Content-Type': 'application/json' },
   });
 }
+
+
+
+export async function POST(request) {
+  // Delete all rows in the orders table
+  const { data, error } = await supabase
+    .from('orders')
+    .delete()
+    .neq('id', null); // This condition effectively deletes every row
+
+  if (error) {
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  return new Response(JSON.stringify({ message: 'All orders cleared', data }), {
+    status: 200,
+    headers: { 'Content-Type': 'application/json' },
+  });
+}
